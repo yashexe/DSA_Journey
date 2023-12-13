@@ -1,7 +1,13 @@
-def isUnique(word):
+# Is Unique: Implement an algorithm to determine if a string has all unique characters.
+
+#---------------------------------------------------------------------
+def isUnique(s):
+    if len(s) > 128: 
+        return False # Assuming ASCII
+
     uniqueChar = {}
 
-    for char in word:
+    for char in s:
         if char in uniqueChar:
             return False
         
@@ -9,9 +15,28 @@ def isUnique(word):
 
     return True
 
+#Time: O(n)
+#Space: O(min(n,d)) either length of string or # distinct characters
+
 print(isUnique('debr!@#$%^&*sfwv3'))
 
-#Time: O(n)
-#Space: O(min(n,d))
+#----------------------------------------------------------------------
+# What if you cannot use additional data structures?
+#-----------------------------------------------------------------------
 
-#Space complexity is either the length of the string, or # of distinct characters
+def noDS(s):
+    if len(s) > 128:
+        return False # Assuming ASCII
+
+    sorted_s = sorted(s)
+
+    for i in range(len(s) - 1):
+        if sorted_s[i] == sorted_s[i+1]:
+            return False
+    
+    return True
+
+#Time: O(n)
+#Space: O(1)
+
+print(noDS('debr!@#$%^&*sfwv3'))
