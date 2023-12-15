@@ -16,22 +16,22 @@ def isPermutation(s1, s2):
 # Space: O(n), ^
 
 class Test(unittest.TestCase):
-    def not_str_1(self):
+    def test_not_str_1(self):
         self.assertFalse(isPermutation('','abc'))
 
-    def not_str_2(self):
+    def test_not_str_2(self):
         self.assertFalse(isPermutation('abc',''))
 
-    def not_str_3(self):
+    def test_not_str_3(self):
         self.assertFalse(isPermutation('',''))
 
-    def diff_length(self):
+    def test_diff_length(self):
         self.assertFalse(isPermutation('abcd','abc'))
 
-    def sorted_true(self):
+    def test_sorted_true(self):
         self.assertTrue(isPermutation('abc','abc'))
 
-    def sorted_false(self):
+    def test_sorted_false(self):
         self.assertFalse(isPermutation('abc','abd'))
 
 if __name__ == '__main__':

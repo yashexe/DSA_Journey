@@ -17,6 +17,8 @@ print(myDict['slam'])
 myDict['slam'] = 66
 # delete key
 del myDict['jack']
+#length of dictionary
+len(myDict)
 # print all pairs in inserted order
 print(list(myDict))
 # print all pairs in sorted order

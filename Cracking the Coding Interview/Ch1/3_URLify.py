@@ -9,7 +9,7 @@ import unittest
 
 def URLify(s,n):
     for i in range(n):
-
+        print(s[i],i,n)
         if s[i] == ' ':
             s = s[:i]  + '%20' + s[i+1:]
             if i - n <= -3:
@@ -20,17 +20,17 @@ def URLify(s,n):
 #-------------------------------------------------------------
 
 class Test(unittest.TestCase):
-    def no_space(self):
+    def test_no_space(self):
         expected = 'MrJohnSmith'
         result = URLify('MrJohnSmith',11)
         self.assertEqual(expected, result)
 
-    def space_start(self):
+    def test_space_start(self):
         expected = "%20MrJohnSmith"
         result = URLify(' MrJohnSmith', 12)
         self.assertEqual(expected, result)
 
-    def space_middle_end(self):
+    def test_space_middle_end(self):
         expected = "Mr%20John%20Smith"
         result = URLify('Mr John Smith ', 13)
         self.assertEqual(expected, result)
