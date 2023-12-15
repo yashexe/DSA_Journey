@@ -34,7 +34,7 @@ def check_palindrome_permutation(s):
                 
     return True
 #Time: O(n) -> n + n + n iterations of for-loop -> 3n -> n
-#
+#Space: O(n), Worst case, all char are unique
 class Test(unittest.TestCase):
     def test_no_str(self):
         self.assertFalse(check_palindrome_permutation(''))
