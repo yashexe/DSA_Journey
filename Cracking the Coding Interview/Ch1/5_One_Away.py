@@ -19,24 +19,29 @@ def one_away(s1,s2):
         s1Dict[char] = s1Dict.get(char,0) + 1
     
     for char in s2:
-        print('now checking', char)
-        if char not in s1:
-            print('not in',s1)
+
+        if char not in s1 or s1Dict[char] == 0:
+            print(char, 'not in',s1)
             count += 1
-            if count > 1:
-                print('more than one difference', s1,s2)
+            if count > 1 or (count == 1 and len(s1) != len(s2)):
                 return False
-        elif s1Dict[char] == 0:
-            print('no more', char, 'left')
-            return False
         else:
             s1Dict[char] -= 1
             print('\'', char, '\' removed, ', s1Dict[char], 'left')
-    return True
+    
+    if count >= 1 and len(s1) == len(s2) or (count == 0 and len(s1) != len(s2)):
+        return True
+
+    return False
 #-------------------------------------------------------------
 
-print(one_away('pale','ple'))
-print(one_away('pales','pale'))
-print(one_away('pale','bale'))
-print(one_away('pale','bake'))
-print(one_away('pale','lle'))
+# print('pale','ple',one_away('pale','ple'))
+# print('ple','pale',one_away('ple','pale'))
+# print('pales','pale',one_away('pales','pale'))
+# print('pale','pales',one_away('pale','pales'))
+# print('pale','bale',one_away('pale','bale'))
+# print('pale','bake',one_away('pale','bake'))
+print('pale','lle',one_away('pale','lle'))
+print('lle','pale',one_away('lle','pale'))
+print('alle','pale',one_away('alle','pale'))
+print('pale','alle',one_away('pale','alle'))
