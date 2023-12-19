@@ -12,36 +12,73 @@ import unittest
 def one_away(s1,s2):
     if abs(len(s1) - len (s2)) > 1:
         return False
-    
-    count = 0
-    s1Dict = {}
-    for char in s1:
-        s1Dict[char] = s1Dict.get(char,0) + 1
-    
-    for char in s2:
+    elif len(s1) == len(s2):
+        return eq_str_len(s1,s2)
+    else:
+        return insert_removal(s1,s2)
 
-        if char not in s1 or s1Dict[char] == 0:
-            print(char, 'not in',s1)
-            count += 1
-            if count > 1 or (count == 1 and len(s1) != len(s2)):
+def eq_str_len(s1,s2):
+    count = 0
+    for i in range(len(s2)):
+        if s1[i] != s2[i]:
+            count +=1
+            if count > 1:
+                return False
+    return True
+
+def insert_removal(s1,s2):
+    count = 0
+
+    shorter, longer = (s1, s2) if len(s1) < len(s2) else (s2, s1)
+
+    shorterDict = {char: shorter.count(char) for char in set(shorter)}
+    
+    for char in longer:
+        if char not in shorterDict:
+            count +=1
+            if count > 1:
                 return False
         else:
-            s1Dict[char] -= 1
-            print('\'', char, '\' removed, ', s1Dict[char], 'left')
-    
-    if count >= 1 and len(s1) == len(s2) or (count == 0 and len(s1) != len(s2)):
-        return True
+            shorterDict[char] -= 1    
+    return True
 
-    return False
+# Time: O(max(len(s1),len(s2)))
+# Space:O(min(len(s1),len(s2)))
 #-------------------------------------------------------------
 
-# print('pale','ple',one_away('pale','ple'))
-# print('ple','pale',one_away('ple','pale'))
-# print('pales','pale',one_away('pales','pale'))
-# print('pale','pales',one_away('pale','pales'))
-# print('pale','bale',one_away('pale','bale'))
-# print('pale','bake',one_away('pale','bake'))
-print('pale','lle',one_away('pale','lle'))
-print('lle','pale',one_away('lle','pale'))
-print('alle','pale',one_away('alle','pale'))
-print('pale','alle',one_away('pale','alle'))
+class Test(unittest.TestCase):
+    def test_general_true_1(self):
+        self.assertTrue(one_away('place','plxce'))
+    def test_general_true_2(self):
+        self.assertTrue(one_away('place','places'))
+    def test_general_true_3(self):
+        self.assertTrue(one_away('place','plac'))
+
+    def test_general_false_4(self):
+        self.assertFalse(one_away('place','plxxe'))
+    def test_general_false_5(self):
+        self.assertFalse(one_away('place','plaxes'))
+    def test_general_false_6(self):
+        self.assertFalse(one_away('place','plax'))
+
+    def test_long_str(self):
+        self.assertFalse(one_away('place','placess'))
+    def test_short_str(self):
+        self.assertFalse(one_away('place','pla'))
+
+    def test_no_str_1(self):
+        self.assertFalse(one_away('','place'))
+    def test_no_str_2(self):
+        self.assertFalse(one_away('place',''))
+    def test_no_str_3(self):
+        self.assertTrue(one_away('','')) #0 edits away
+
+    def test_space_1(self):
+        self.assertTrue(one_away('place',' place'))
+    def test_space_2(self):
+        self.assertTrue(one_away('place ','place'))
+    def test_space_3(self):
+        self.assertTrue(one_away('place','pl ce'))
+
+if __name__ == '__main__':
+    unittest.main()
