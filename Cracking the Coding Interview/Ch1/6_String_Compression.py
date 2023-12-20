@@ -6,7 +6,7 @@
 import unittest
 #-------------------------------------------------------------
 
-def compress_string(s):
+def compress_string_1(s):
     if len(s) <= 2:
         return s
     
@@ -32,38 +32,88 @@ def compress_string(s):
 
 
 #-------------------------------------------------------------
-# Time: O(n) - length of string, must iterate through all characters
-# Space: O(n) - worst case is when there are no repeats: eg. abc -> a1b1c1 -> O(2n) = O(n)
+# Time: O(m*n^2) - string concatenation
+# Space: O(n) - worst case is when there are no repeats: eg. abc -> a1b1c1 -> O(2n) = O
+#-------------------------------------------------------------
+def compress_string_2(s):
+    if len(s) <= 2:
+        return s
+    
+    compressed_str = []
+    count = 0
+
+    for i in range(len(s)):
+        if i != 0 and s[i] != s[i-1]:
+            compressed_str.append(s[i-1] + str(count))
+            count = 0
+        count += 1
+
+    compressed_str.append(s[-1] + str(count))
+
+    return ''.join(compressed_str) if len(compressed_str) < len(s) else s
+#-------------------------------------------------------------
+# Time: O(n)
+# Space: O(n) - worst case is when there are no repeats: eg. abc -> a1b1c1 -> O(2n) = O
 #-------------------------------------------------------------
 
 class Test(unittest.TestCase):
     def test_one_char(self):
-        answer = compress_string('a')
+        answer = compress_string_1('a')
         expected = 'a'
         self.assertEqual(answer, expected)
     
     def test_two_char(self):
-        answer = compress_string('aa')
+        answer = compress_string_1('aa')
         expected = 'aa'
         self.assertEqual(answer, expected)
 
     def test_starting_distinct_char(self):
-        answer = compress_string('aabbb')
+        answer = compress_string_1('aabbb')
         expected = 'a2b3'
         self.assertEqual(answer, expected)
 
     def test_starting_compressable_char(self):
-        answer = compress_string('aaabbb')
+        answer = compress_string_1('aaabbb')
         expected = 'a3b3'
         self.assertEqual(answer, expected)
     
     def test_ending_distinct_char(self):
-        answer = compress_string('aaaab')
+        answer = compress_string_1('aaaab')
         expected = 'a4b1'
         self.assertEqual(answer, expected)
 
     def test_ending_compressable_char(self):
-        answer = compress_string('aabbb')
+        answer = compress_string_1('aabbb')
+        expected = 'a2b3'
+        self.assertEqual(answer, expected)
+
+    def test_one_char_2(self):
+        answer = compress_string_2('a')
+        expected = 'a'
+        self.assertEqual(answer, expected)
+    
+    def test_two_char_2(self):
+        answer = compress_string_2('aa')
+        expected = 'aa'
+        self.assertEqual(answer, expected)
+
+    def test_starting_distinct_char_2(self):
+        answer = compress_string_2('aabbb')
+        expected = 'a2b3'
+        self.assertEqual(answer, expected)
+
+    def test_starting_compressable_char_2(self):
+        answer = compress_string_2('aaabbb')
+        expected = 'a3b3'
+        self.assertEqual(answer, expected)
+    
+    def test_ending_distinct_char_2(self):
+        answer = compress_string_2('aaaab')
+        expected = 'a4b1'
+        self.assertEqual(answer, expected)
+
+    def test_ending_compressable_char_2(self):
+        answer = compress_string_2('aabbb')
         expected = 'a2b3'
         self.assertEqual(answer, expected)
 
