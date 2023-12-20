@@ -47,5 +47,26 @@ class Test(unittest.TestCase):
         expected = 'aa'
         self.assertEqual(answer, expected)
 
+    def test_starting_distinct_char(self):
+        answer = compress_string('aabbb')
+        expected = 'a2b3'
+        self.assertEqual(answer, expected)
+
+    def test_starting_compressable_char(self):
+        answer = compress_string('aaabbb')
+        expected = 'a3b3'
+        self.assertEqual(answer, expected)
+    
+    def test_ending_distinct_char(self):
+        answer = compress_string('aaaab')
+        expected = 'a4b1'
+        self.assertEqual(answer, expected)
+
+    def test_ending_compressable_char(self):
+        answer = compress_string('aabbb')
+        expected = 'a2b3'
+        self.assertEqual(answer, expected)
+
+        
 if __name__ == '__main__':
     unittest.main()
