@@ -32,8 +32,8 @@ def compress_string(s):
 
 
 #-------------------------------------------------------------
-# Time: 
-# Space: 
+# Time: O(n) - length of string, must iterate through all characters
+# Space: O(n) - worst case is when there are no repeats: eg. abc -> a1b1c1 -> O(2n) = O(n)
 #-------------------------------------------------------------
 
 class Test(unittest.TestCase):
@@ -67,6 +67,5 @@ class Test(unittest.TestCase):
         expected = 'a2b3'
         self.assertEqual(answer, expected)
 
-        
 if __name__ == '__main__':
     unittest.main()
