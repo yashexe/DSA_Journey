@@ -14,25 +14,23 @@ def Rotate_Matrix(matrix):
     for row in range(len(matrix) // 2):
         first = row
         last = len(matrix) - 1 - row
+        
         for column in range(first,last):
-            #top to right
-            temp = matrix[column][last]
-            matrix[column][last] = matrix[row][column]
-            #right to bottom
-            temp2 = matrix[last][last - column]
-            matrix[last][last - column] = temp
-            # bottom to left
-            temp = matrix[last - column][first]
-            matrix[last - column][first] = temp2
-            # left to top
-            matrix[first][column] = temp            
+
+            top = matrix[first][column]
+
+            matrix[first][column] = matrix[-column - 1][first]
+
+            matrix[-column - 1][first] = matrix[last][-column - 1]
+
+            matrix[last][-column - 1] = matrix[column][last]
+
+            matrix[column][last] = top
     return matrix
 
 real = Rotate_Matrix([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]])
-
 for i in range(len(real)):
     print(real[i])
-
 #-------------------------------------------------------------
 # Time: 
 # Space: 
