@@ -11,9 +11,11 @@ import unittest
 #-------------------------------------------------------------
 
 def Rotate_Matrix(matrix):
-    for row in range(len(matrix) // 2):
-        first = row
-        last = len(matrix) - 1 - row
+    if len(matrix) == 1:
+        return matrix
+ 
+    for first in range(len(matrix) // 2):
+        last = len(matrix) - 1 - first
         
         for column in range(first,last):
 
@@ -28,15 +30,26 @@ def Rotate_Matrix(matrix):
             matrix[column][last] = top
     return matrix
 
-real = Rotate_Matrix([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]])
-for i in range(len(real)):
-    print(real[i])
 #-------------------------------------------------------------
-# Time: 
-# Space: 
+# Time: O(n^2)
+# Space: O(1) - no additional DS that scale with input size
 #-------------------------------------------------------------
 
-# class test(unittest.TestCase):
+class test(unittest.TestCase):
+    def test_single(self):
+        answer = Rotate_Matrix([[4]])
+        expected = [[4]]
+        self.assertEqual(answer, expected)
 
-# if __name__ == '__main__':
-#     unittest.main()
+    def test_even(self):
+        answer = Rotate_Matrix([[1,2],[3,4]])
+        expected = [[3,1],[4,2]]
+        self.assertEqual(answer, expected)
+
+    def test_odd(self):
+        answer = Rotate_Matrix([[1,2,3],[4,5,6],[7,8,9]])
+        expected = [[7,4,1],[8,5,2],[9,6,3]]
+        self.assertEqual(answer, expected)
+
+if __name__ == '__main__':
+    unittest.main()
