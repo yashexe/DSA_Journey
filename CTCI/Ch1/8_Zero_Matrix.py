@@ -5,29 +5,51 @@ import unittest
 #-------------------------------------------------------------
 
 def zero_matrix(matrix):
-    zeros = []
+    zero_row = False
+    columns = []
 
     for i in range(len(matrix)):
         for j in range(len(matrix[0])):
             if matrix[i][j] == 0:
-                zeros.append(f'{i}{j}')
+                zero_row = True
+                if j not in columns:
+                    columns.append(j)
 
-    print(zeros)
+        if zero_row:
+            zero_row = False
+            matrix[i] = [0 for _ in range(len(matrix[0]))]
+        
+    for i in range(len(matrix)):
+        for j in range(len(matrix[0])):
+            if j in columns:
+                matrix[i][j] = 0
 
-    rows = set(s[0] for s in zeros)
-    columns = set(s[1] for s in zeros)
-
-    print(rows)
-    print(columns)
     return matrix
 
-zero_matrix([[1,0,3],[4,0,0],[0,8,9]])
 #-------------------------------------------------------------
-# Time:
-# Space: 
+# Time: O(MN) - need to find zeros before setting matrix
+# Space: O(N) - worst case all columns have a 0, rows are determined at the end of each column sweep, by a bln value
 #-------------------------------------------------------------
 
-# class test(unittest.TestCase):
+class test(unittest.TestCase):
+    def test_zero_matrix(self):
+        answer = zero_matrix([[0,0],[0,0]])
+        expected = [[0,0],[0,0]]
+        self.assertEqual(answer, expected)
 
-# if __name__ == '__main__':
-#     unittest.main()
+    def test_only_one_row(self):
+        answer = zero_matrix([[1,2,3,4,0]])
+        expected = [[0,0,0,0,0]]
+        self.assertEqual(answer, expected)
+    def test_only_one_col(self):
+        answer = zero_matrix([[1],[2],[3],[4],[0]])
+        expected = [[0],[0],[0],[0],[0]]
+        self.assertEqual(answer, expected)
+
+    def test_full_matrix(self):
+        answer = zero_matrix([[7,8,9],[1,2,3],[4,5,6],[7,9,8]])
+        expected = [[7,8,9],[1,2,3],[4,5,6],[7,9,8]]
+        self.assertEqual(answer, expected)
+        
+if __name__ == '__main__':
+    unittest.main()
