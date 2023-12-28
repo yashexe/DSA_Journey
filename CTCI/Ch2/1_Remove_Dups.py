@@ -5,9 +5,9 @@
 import unittest
 
 #-------------------------------------------------------------
-def Remove_Dups(head):
+def Remove_Dups(sll):
     
-    return head
+    return sll
 
 
 #-------------------------------------------------------------
