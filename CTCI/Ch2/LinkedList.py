@@ -37,6 +37,10 @@ class LinkedList:
                 curr = curr.next
             curr.next = Node(value)
     
+    def group_add(self,values):
+        for value in values:
+            self.add(value)
+    
     def delete(self,key):
         if self.is_empty():
             return None
@@ -53,9 +57,11 @@ class LinkedList:
 
         return self.head
 
-# SLL = LinkedList()
-# SLL.add(1)
-# SLL.add(7)
-# SLL.add(3)
-# SLL.delete(7)
-# print(SLL)
+SLL = LinkedList()
+SLL.add(1)
+SLL.add(7)
+SLL.add(3)
+SLL.delete(7)
+print(SLL)
+SLL.group_add([1,2,3,74,3,12])
+print(SLL)
