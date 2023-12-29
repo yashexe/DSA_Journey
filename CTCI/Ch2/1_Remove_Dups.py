@@ -13,13 +13,12 @@ def Remove_Dups(sll):
     dummy.next = sll.head
 
     while temp:
-        valDict[str(temp.value)] = valDict.get(str(temp.value), 0) + 1
+        valDict[temp.value] = valDict.get(temp.value, 0) + 1
         temp = temp.next
 
-
     while dummy.next:
-        if valDict[str(dummy.next.value)] > 1:
-            valDict[str(dummy.next.value)] -= 1
+        if valDict[dummy.next.value] > 1:
+            valDict[dummy.next.value] -= 1
             sll.delete(dummy.next.value)
 
         dummy = dummy.next
