@@ -47,14 +47,15 @@ class LinkedList:
 
         while temp.next and temp.next.value != key:
             temp = temp.next
+            
         if temp.next:
             temp.next = temp.next.next
 
         return self.head
 
-SLL = LinkedList()
-SLL.add(1)
-SLL.add(7)
-SLL.add(3)
-SLL.add(4)
-print(SLL)
+# SLL = LinkedList()
+# SLL.add(1)
+# SLL.add(7)
+# SLL.add(3)
+# SLL.delete(7)
+# print(SLL)
