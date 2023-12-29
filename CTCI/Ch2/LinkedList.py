@@ -41,6 +41,19 @@ class LinkedList:
         for value in values:
             self.add(value)
     
+    def to_list(self):
+        if not curr:
+            return []
+        
+        curr = self.head
+        arr = []
+
+        while curr:
+            arr.append(curr.value)
+            curr = curr.next
+
+        return arr
+    
     def delete(self,key):
         if self.is_empty():
             return None
