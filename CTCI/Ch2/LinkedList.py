@@ -42,7 +42,7 @@ class LinkedList:
             self.add(value)
     
     def to_list(self):
-        if not curr:
+        if not self.head:
             return []
         
         curr = self.head
@@ -57,7 +57,9 @@ class LinkedList:
     def delete(self,key):
         if self.is_empty():
             return None
-        elif self.head.value == key:
+        
+        if self.head.value == key:
+            self.head = self.head.next
             return self.head.next
         
         temp = self.head
@@ -69,12 +71,3 @@ class LinkedList:
             temp.next = temp.next.next
 
         return self.head
-
-SLL = LinkedList()
-SLL.add(1)
-SLL.add(7)
-SLL.add(3)
-SLL.delete(7)
-print(SLL)
-SLL.group_add([1,2,3,74,3,12])
-print(SLL)
