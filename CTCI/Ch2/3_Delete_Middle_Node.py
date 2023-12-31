@@ -25,7 +25,6 @@ def delete_middle_value(sll,element):
             return
         curr = curr.next
         curr_length+=1
-
 #-------------------------------------------------------------
 # Time: O(n)
 # Space: O(1)
@@ -52,7 +51,6 @@ class test(unittest.TestCase):
         node = sll_2.add(1)
         sll_2.group_add([2,3,4,5,6])
         delete_middle_node(node)
-
         self.assertEqual(sll_2.to_list(),[1,2,3,4,5,6])
 
     def test_last_element(self):
