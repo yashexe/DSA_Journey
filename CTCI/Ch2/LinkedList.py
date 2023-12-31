@@ -4,9 +4,9 @@
 
 
 class Node:
-    def __init__(self, value):
+    def __init__(self, value,next_node = None):
         self.value = value
-        self.next = None
+        self.next = next_node
 
     def __str__(self):
         return str(self.value)
@@ -36,6 +36,7 @@ class LinkedList:
             while curr.next:
                 curr = curr.next
             curr.next = Node(value)
+            return curr.next
     
     def group_add(self,values):
         for value in values:
