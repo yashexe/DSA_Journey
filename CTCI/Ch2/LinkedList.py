@@ -54,6 +54,16 @@ class LinkedList:
 
         return arr
     
+    def length(self):
+        length = 0
+        curr = self.head
+
+        while curr:
+            length += 1
+            curr = curr.next
+
+        return length
+    
     def delete(self,key):
         if self.is_empty():
             return None
