@@ -8,7 +8,7 @@
 # Output: 3->1->2->10->5->5->8
 
 # This was solved assuming that the partition value would need to be added in, if
-# not already present.
+# not already present. The last if statement can be deleted to remove this effect.
 
 from LinkedList import LinkedList,Node
 import unittest
