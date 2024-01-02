@@ -11,8 +11,48 @@ from LinkedList import LinkedList,Node
 import unittest
 #-------------------------------------------------------------
 def Partition(sll,x):
+    sll_set = set()
+
+    curr = sll.head
+
+    while curr:
+        if curr.value == x:
+            sll_set.add(curr.value)
+            break
+        curr = curr.next
+
+    curr = sll.head
+    while curr.next:
+        if curr.next.value < x:
+            new_node = Node(curr.next.value)
+
+            curr.next = curr.next.next
+
+            new_node.next = sll.head
+
+            sll.head = new_node
+        else:
+            curr = curr.next
+
+    if x not in sll_set:
+        curr = sll.head
+
+        while curr:
+            if curr.next.value > x:
+                new_node = Node(x)
+                new_node.next = curr.next
+                curr.next = new_node
+
+                break
+
+            curr = curr.next
 
     return sll
+
+sll = LinkedList()
+sll.group_add([3,8,10,2,1,4,2,1,3,2,10,101,5,92,3])
+new_sll = Partition(sll,5)
+print(new_sll)
 #-------------------------------------------------------------
 # Time:
 # Space:
