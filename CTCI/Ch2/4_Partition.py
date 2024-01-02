@@ -7,6 +7,9 @@
 # Input: 3->5->8->5->10->2->1 [parition = 5]
 # Output: 3->1->2->10->5->5->8
 
+# This was solved assuming that the partition value would need to be added in, if
+# not already present.
+
 from LinkedList import LinkedList,Node
 import unittest
 #-------------------------------------------------------------
