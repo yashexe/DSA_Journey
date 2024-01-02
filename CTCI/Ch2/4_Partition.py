@@ -11,37 +11,34 @@ from LinkedList import LinkedList,Node
 import unittest
 #-------------------------------------------------------------
 def partition(sll,x):
+    if not sll.head:
+        return sll
+    
+    x_in_list = sll.head.value == x
 
     curr = sll.head
-    x_in_list = (curr.value == x)
-
+    
     while curr.next:
         if not x_in_list and curr.next.value == x:
             x_in_list = True
-            
+
         if curr.next.value < x:
             new_node = Node(curr.next.value)
-
-            curr.next = curr.next.next
-
             new_node.next = sll.head
-
             sll.head = new_node
+            curr.next = curr.next.next
         else:
             curr = curr.next
 
-    if x_in_list == False:
+    if not x_in_list:
         curr = sll.head
 
-        while curr:
-            if curr.next.value > x:
-                new_node = Node(x)
-                new_node.next = curr.next
-                curr.next = new_node
-
-                break
-
+        while curr and curr.next.value <= x:
             curr = curr.next
+            
+        new_node = Node(x)
+        new_node.next = curr.next
+        curr.next = new_node            
 
     return sll
 
