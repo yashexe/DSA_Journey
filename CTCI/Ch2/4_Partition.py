@@ -33,26 +33,57 @@ def partition(sll,x):
     if not x_in_list:
         curr = sll.head
 
-        while curr and curr.next.value <= x:
+        while curr.next and curr.next.value <= x:
             curr = curr.next
-            
+    
         new_node = Node(x)
         new_node.next = curr.next
-        curr.next = new_node            
+        curr.next = new_node
 
     return sll
 
-
-sll = LinkedList()
-sll.group_add([5,3,8,10,2,1,4,2,1,3,2,5,10,101,92,3])
-new_sll = partition(sll,5)
-print(new_sll)
 #-------------------------------------------------------------
-# Time:
-# Space:
+# Time: O(n)
+# Space: O(1) - new nodes created dont necessarily increase w.r.t. size of SLL
 #-------------------------------------------------------------
-# class test(unittest.TestCase):
+class test(unittest.TestCase):
+    def test_partition_empty_list(self):
+        sll = LinkedList()
+        sll.group_add([])
 
+        expected_result = []
+        partitioned_sll = partition(sll, 5)
 
-# if __name__ == '__main__':
-#     unittest.main()
+        self.assertEqual(partitioned_sll.to_list(), expected_result)
+
+    def test_partition_all_values_less_than_x(self):
+        sll = LinkedList()
+        sll.group_add([3, 2, 1])
+
+        expected_result = [1, 2, 3, 5]
+        partitioned_sll = partition(sll, 5)
+
+        self.assertEqual(partitioned_sll.to_list(), expected_result)
+
+    def test_partition_all_values_greater_than_x(self):
+        sll = LinkedList()
+        sll.group_add([8, 9, 10])
+        expected_result = [8, 5, 9, 10]
+        partitioned_sll = partition(sll, 5)
+        self.assertEqual(partitioned_sll.to_list(), expected_result)
+
+    def test_partition_mixed_values(self):
+        sll = LinkedList()
+        sll.group_add([3, 8, 2, 10, 1, 5, 7])
+        expected_result = [1, 2, 3, 8, 10, 5, 7]
+        partitioned_sll = partition(sll, 5)
+        self.assertEqual(partitioned_sll.to_list(), expected_result)
+
+    def test_partition_x_at_the_end(self):
+        sll = LinkedList()
+        sll.group_add([3, 8, 2, 10, 1, 5, 7, 6])
+        expected_result = [5, 1, 2, 3, 8, 10, 7, 6]
+        partitioned_sll = partition(sll, 6)
+        self.assertEqual(partitioned_sll.to_list(), expected_result)
+if __name__ == '__main__':
+    unittest.main()
