@@ -46,8 +46,11 @@ def sum_sll2(list1,list2):
     sum = LinkedList()
 
     list1_arr = list1.to_list()
-    list1_arr = list1.to_list()
+    list2_arr = list2.to_list()
 
+    sum_str = str(int(''.join(map(str,num1))) + int(''.join(map(str,num2))))
+
+    sum.group_add([int(i) for i in sum_str])
 
     return sum
 
