@@ -34,8 +34,8 @@ def to_int(list):
     return num
 
 #-------------------------------------------------------------
-# Time: 
-# Space:
+# Time:  O(max(m, n))
+# Space:  O(max(m, n))
 #-------------------------------------------------------------
 # FOLLOW UP: Suppose the digits are stored in forward order. Repeat the above problem.
 # INPUT: 6->1->7 + 2->9->5
@@ -55,8 +55,8 @@ def sum_sll2(list1,list2):
     return sum
 
 #-------------------------------------------------------------
-# Time: 
-# Space:
+# Time:  O(max(m, n))
+# Space: O(m + n)
 #-------------------------------------------------------------
 # class test(unittest.TestCase):
 
