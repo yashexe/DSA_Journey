@@ -11,8 +11,28 @@ import unittest
 
 def sum_sll(list1,list2):
     sum = LinkedList()
+    
+    num1 = to_int(list1)
+    num2 = to_int(list2)
+
+    sum_str = reversed(str(num1 + num2))
+
+    sum.group_add([int(i) for i in sum_str])
 
     return sum
+
+def to_int(list):
+    num = 0
+    i = 0
+    curr = list.head
+
+    while curr:
+        num += curr.value*pow(10,i)
+        i += 1
+        curr = curr.next
+
+    return num
+
 #-------------------------------------------------------------
 # Time: 
 # Space:
@@ -24,6 +44,10 @@ def sum_sll(list1,list2):
 
 def sum_sll2(list1,list2):
     sum = LinkedList()
+
+    list1_arr = list1.to_list()
+    list1_arr = list1.to_list()
+
 
     return sum
 
