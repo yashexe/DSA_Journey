@@ -15,9 +15,7 @@ def sum_sll(list1,list2):
     num1 = to_int(list1)
     num2 = to_int(list2)
 
-    sum_str = reversed(str(num1 + num2))
-
-    sum.group_add([int(i) for i in sum_str])
+    sum.group_add([int(i) for i in reversed(str(num1 + num2))])
 
     return sum
 
