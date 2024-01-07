@@ -4,7 +4,7 @@
 # EXAMPLE:
 # INPUT: 7->1->6 + 5->9->2
 # Output: 2->1->9
-
+# Assume numbers do not have leading zeros, and exist eg. 20 + 024, 20 + None
 from LinkedList import LinkedList,Node
 import unittest
 #-------------------------------------------------------------
@@ -41,12 +41,19 @@ def to_int(list):
 #-------------------------------------------------------------
 
 def sum_sll2(list1,list2):
+    if list1.head.value == 0 and list2.head.value == 0:
+        return list1
+    elif list1.head.value == 0 and list2.head.value != 0:
+        return list2
+    elif list1.head.value != 0 and list2.head.value == 0:
+        return list1
+    
     sum = LinkedList()
-
+        
     list1_arr = list1.to_list()
     list2_arr = list2.to_list()
 
-    sum_str = str(int(''.join(map(str,num1))) + int(''.join(map(str,num2))))
+    sum_str = str(int(''.join(map(str,list1_arr))) + int(''.join(map(str,list2_arr))))
 
     sum.group_add([int(i) for i in sum_str])
 
@@ -56,7 +63,29 @@ def sum_sll2(list1,list2):
 # Time:  O(max(m, n))
 # Space: O(m + n)
 #-------------------------------------------------------------
-# class test(unittest.TestCase):
+class test(unittest.TestCase):
+    def test_zero_lists(self):
+        list1 = LinkedList()
+        list2 = LinkedList()
+        list1.add(0)
+        list2.add(0)
 
-# if __name__ == '__main__':
-#     unittest.main()
+        sum1 = sum_sll(list1,list2).to_list()
+        sum2 = sum_sll2(list1,list2).to_list()
+
+        self.assertEqual(sum1,[0])
+        self.assertEqual(sum2,[0])
+    def test_incr_digits(self):
+        list1 = LinkedList()
+        list2 = LinkedList()
+        list1.add(1)
+        list2.add(9)
+
+        sum1 = sum_sll(list1,list2).to_list()
+        sum2 = sum_sll2(list1,list2).to_list()
+
+        self.assertEqual(sum1,[0,1])
+        self.assertEqual(sum2,[1,0])
+
+if __name__ == '__main__':
+    unittest.main()
