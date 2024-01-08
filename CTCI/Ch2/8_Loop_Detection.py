@@ -16,9 +16,19 @@ import unittest
 #-------------------------------------------------------------
 
 def get_circular_startpoint(cll):
-    if not cll.head or cll.next.head:
+    if not cll.head or not cll.head.next:
         return None
     
+    cll_set = set([cll.head])
+
+    curr = cll.head
+
+    while curr.next:
+
+        if curr.next in cll_set:
+            return curr.next
+        cll_set.add(curr.next)
+        curr = curr.next
     return None
 
 #-------------------------------------------------------------
@@ -39,10 +49,12 @@ while curr2.value != 3: #Chose a reference to circle back to
 curr.next = curr2.next  #Set last reference to the starting point of the CLL
 
 curr2 = cll.head
-for _ in range(50):       #print the CLL a certain amount of times
-    print(curr2.value)
-    curr2 = curr2.next
 
+print('Node: ',get_circular_startpoint(cll))
+
+cll2 = LinkedList()
+cll2.group_add([1,2,3,4,5,6])
+print('Node: ',get_circular_startpoint(cll2))
 # class Test(unittest.TestCase):
 
 # if __name__ == '__main__':
