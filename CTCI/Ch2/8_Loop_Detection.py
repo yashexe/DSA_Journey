@@ -32,30 +32,35 @@ def get_circular_startpoint(cll):
     return None
 
 #-------------------------------------------------------------
-# Time: 
-# Space:
+# Time: O(n)
+# Space: O(n) - Worst case is n unique nodes 
 #-------------------------------------------------------------
-cll = LinkedList()
-cll.group_add([1,2,3,4,5,6])
 
-curr = cll.head
-while curr.next:        #last reference
-    curr = curr.next
+class Test(unittest.TestCase):
+    def test_no_cycle(self):
+        cll = LinkedList()
+        cll.group_add([1, 2, 3, 4, 5])
+        self.assertEqual(get_circular_startpoint(cll), None)
 
-curr2 = cll.head
-while curr2.value != 3: #Chose a reference to circle back to
-    curr2 = curr2.next
+    def test_cycle_at_beginning(self):
+        cll = LinkedList()
+        cll.add(10)
+        cll.head.next = cll.head
+        self.assertEqual(get_circular_startpoint(cll), cll.head)
 
-curr.next = curr2.next  #Set last reference to the starting point of the CLL
+    def test_cycle_in_middle(self):
+        cll = LinkedList()
+        cll.group_add([1, 2, 3, 4, 5])
+        middle_node = cll.head.next.next 
+        cll.head.next.next.next.next.next = middle_node 
+        self.assertEqual(get_circular_startpoint(cll), middle_node)
 
-curr2 = cll.head
+    def test_cycle_at_end(self):
+        cll = LinkedList()
+        cll.group_add([1, 2, 3, 4, 5])
+        end_node = cll.head.next.next.next.next  
+        cll.head.next.next.next.next.next = end_node  
+        self.assertEqual(get_circular_startpoint(cll), end_node)
 
-print('Node: ',get_circular_startpoint(cll))
-
-cll2 = LinkedList()
-cll2.group_add([1,2,3,4,5,6])
-print('Node: ',get_circular_startpoint(cll2))
-# class Test(unittest.TestCase):
-
-# if __name__ == '__main__':
-#     unittest.main()
+if __name__ == '__main__':
+    unittest.main()
