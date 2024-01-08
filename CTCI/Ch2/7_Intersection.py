@@ -7,7 +7,7 @@ from LinkedList import LinkedList,Node
 import unittest
 #-------------------------------------------------------------
 
-def is_intersection(sll1,sll2):
+def get_intersection(sll1,sll2):
     if not sll1.head or not sll2.head:
         return None
     if sll1.head == sll2.head:
@@ -43,34 +43,50 @@ def is_intersection(sll1,sll2):
 # Time: O(min(m,n)) - travserse all nodes if none are intersection
 # Space: O(m + n) - set stores all nodes if none are intersection
 #-------------------------------------------------------------
-sll1 = LinkedList()
-sll2 = LinkedList()
-sll3 = LinkedList()
-sll4 = LinkedList()
-sll1.group_add([1,2,3])
-sll2.group_add([7,8,9])
-sll3.group_add([4,5,6])
-sll4.group_add([10,11,12,4,5,6])
 
-curr = sll1.head
-curr2 = sll2.head
-curr3 = sll4.head
+class test(unittest.TestCase):
+    def test_empty_sll(self):
+        sll1 = LinkedList()
+        sll2 = LinkedList()
+        self.assertEqual(get_intersection(sll1, sll2), None)
 
-while curr.next:
-    curr = curr.next
-curr.next = sll3.head
+    def test_no_intersection(self):
+        sll1 = LinkedList()
+        sll1.group_add([1, 2, 3])
+        sll2 = LinkedList()
+        sll2.group_add([4, 5, 6])
+        self.assertEqual(get_intersection(sll1, sll2), None)
 
-while curr2.next:
-    curr2 = curr2.next
-curr2.next = sll3.head
+    def test_intersection_at_beginning(self):
+        common_node = Node(7)
+        sll1 = LinkedList()
+        sll1.group_add([1, 2, 3])
+        sll1.head.next.next.next = common_node
+        sll2 = LinkedList()
+        sll2.head = common_node
+        self.assertEqual(get_intersection(sll1, sll2), common_node)
 
-while curr3.next.value != 4:
-    curr3 = curr3.next
+    def test_intersection_in_middle(self):
+        common_node = Node(7)
+        sll1 = LinkedList()
+        sll1.group_add([1, 2, 3, 4])
+        sll1.head.next.next.next.next = common_node
+        sll1.group_add([8, 9])
+        sll2 = LinkedList()
+        sll2.group_add([5, 6])
+        sll2.head.next.next = common_node
+        self.assertEqual(get_intersection(sll1, sll2), common_node)
 
-print(is_intersection(sll1,sll4))
-print(is_intersection(sll1,sll2))
-# class test(unittest.TestCase):
+    def test_intersection_at_end(self):
+        common_node = Node(7)
+        sll1 = LinkedList()
+        sll1.group_add([1, 2, 3])
+        sll1.group_add([8, 9])
+        sll1.head.next.next.next.next = common_node
+        sll2 = LinkedList()
+        sll2.group_add([4, 5, 6])
+        sll2.head = common_node
+        self.assertEqual(get_intersection(sll1, sll2), common_node)
 
-
-# if __name__ == '__main__':
-#     unittest.main()
+if __name__ == '__main__':
+    unittest.main()
