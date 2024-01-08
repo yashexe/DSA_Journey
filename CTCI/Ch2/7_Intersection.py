@@ -10,27 +10,37 @@ import unittest
 def is_intersection(sll1,sll2):
     if not sll1.head or not sll2.head:
         return None
-    
     if sll1.head == sll2.head:
         return sll1.head
     
     node_set = set([sll1.head,sll2.head])
 
-    curr = sll1.head
-    while curr.next:
-        node_set.add(curr.next)
-        curr = curr.next
+    if sll1.length() > sll2.length():
+        curr1 = sll1.head
+        curr2 = sll2.head
+    else:
+        curr1 = sll2.head
+        curr2 = sll1.head
 
-    curr = sll2.head
-    while curr.next:
-        if curr.next in node_set:
-            return curr.next
-        curr = curr.next
+    while curr1.next:
+        
+        if curr1.next in node_set:
+            return curr1.next
+        else:
+            node_set.add(curr1.next)
 
+        if curr2 and curr2.next in node_set:
+            return curr2.next
+        elif curr2:
+            node_set.add(curr2.next)
+
+        curr1 = curr1.next
+        if curr2:
+            curr2 = curr2.next
     return None
 
 #-------------------------------------------------------------
-# Time: O(m + n) - travserse all nodes if none are intersection
+# Time: O(min(m,n)) - travserse all nodes if none are intersection
 # Space: O(m + n) - set stores all nodes if none are intersection
 #-------------------------------------------------------------
 sll1 = LinkedList()
