@@ -16,14 +16,12 @@ def get_intersection(sll1,sll2):
     node_set = set([sll1.head,sll2.head])
 
     if sll1.length() > sll2.length():
-        curr1 = sll1.head
-        curr2 = sll2.head
+        curr1, curr2 = sll1.head, sll2.head
     else:
-        curr1 = sll2.head
-        curr2 = sll1.head
+        curr1, curr2 = sll2.head, sll1.head
 
     while curr1.next:
-        
+    
         if curr1.next in node_set:
             return curr1.next
         else:
@@ -40,7 +38,7 @@ def get_intersection(sll1,sll2):
     return None
 
 #-------------------------------------------------------------
-# Time: O(min(m,n)) - travserse all nodes if none are intersection
+# Time: O(min(m,n))
 # Space: O(m + n) - set stores all nodes if none are intersection
 #-------------------------------------------------------------
 
