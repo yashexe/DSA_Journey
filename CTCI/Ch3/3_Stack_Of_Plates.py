@@ -94,7 +94,7 @@ class SetOfStacks:
 #-------------------------------------------------------------
     def popAt(self,index):
         if self.latest is None or index > self.latest or index < 0:
-            return IndexError('Invalid Index value.')
+            raise IndexError('Invalid Index value.')
         
         elif self.set[index].num == 1:
             old_value = self.set[index].pop()
@@ -112,7 +112,66 @@ class SetOfStacks:
 # Space: O(1)
 #-------------------------------------------------------------
 
-# class Test(unittest.TestCase):
-        
-# if __name__ == '__main__':
-#     unittest.main()
+class Test(unittest.TestCase):
+
+    def test_push_pop(self):
+        set_of_stacks = SetOfStacks(threshold=3)
+        values = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+        for value in values:
+            set_of_stacks.push(value)
+
+        popped_values = []
+        while True:
+            value = set_of_stacks.pop()
+            if value is None:
+                break
+            popped_values.append(value)
+
+        self.assertEqual(popped_values, values[::-1])
+
+    def test_pop_at(self):
+        set_of_stacks = SetOfStacks(threshold=3)
+        values = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+        for value in values:
+            set_of_stacks.push(value)
+
+        popped_value = set_of_stacks.popAt(1)
+        self.assertEqual(popped_value, 6)
+
+        popped_value = set_of_stacks.popAt(0)
+        self.assertEqual(popped_value, 3)
+
+        popped_value = set_of_stacks.popAt(2)
+        self.assertEqual(popped_value, 9)
+
+        with self.assertRaises(IndexError):
+            set_of_stacks.popAt(3)
+
+    def test_push_after_pop_at(self):
+        set_of_stacks = SetOfStacks(threshold=2)
+        values = [1, 2, 3, 4, 5, 6]
+
+        for value in values:
+            set_of_stacks.push(value)
+
+        popped_value = set_of_stacks.popAt(1)
+        self.assertEqual(popped_value, 4)
+
+        set_of_stacks.push(10)
+
+        popped_value = set_of_stacks.popAt(0)
+        self.assertEqual(popped_value, 2)
+
+        popped_values = []
+        while True:
+            value = set_of_stacks.pop()
+            if value is None:
+                break
+            popped_values.append(value)
+
+        self.assertEqual(popped_values, [10, 6, 5, 3, 1])
+
+if __name__ == '__main__':
+    unittest.main()
