@@ -23,12 +23,9 @@ class Stack:
         self.top = None
         self.curr_min = None
         self.ordered_mins = []
-        self.index = 0
 
     def push(self, value):
         if not self.curr_min or value <= self.curr_min:
-            if self.curr_min:
-                self.index += 1
             self.curr_min = value
             self.ordered_mins.append(value)
 
@@ -43,9 +40,9 @@ class Stack:
         
         old_value = self.top.value
 
-        if old_value == self.ordered_mins[self.index]:
-            self.index -= 1
-            self.curr_min = self.ordered_mins[self.index]
+        if old_value == self.ordered_mins[-1]:
+            self.ordered_mins.pop()
+            self.curr_min = self.ordered_mins[-1] if self.ordered_mins else None
 
         self.top = self.top.next
 
@@ -56,6 +53,7 @@ class Stack:
             return None
 
         return self.curr_min
+
 #-------------------------------------------------------------
 # Time: O(1) - for all operations
 # Space: O(n) - n elements in stack
