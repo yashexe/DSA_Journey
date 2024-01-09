@@ -3,7 +3,6 @@
 # operate in O(1) time.
 
 import unittest
-
 #-------------------------------------------------------------
 class Stack_Node:
     def __init__(self, value, next_node = None):
@@ -45,27 +44,70 @@ class Stack:
             return None
 
         return self.ordered_mins[-1]
-
-S = Stack()
-
-S.push(4)
-S.push(3)
-S.push(1)
-S.push(2)
-S.push(1)
-S.push(2)
-S.push(1)
-
-for i in range(4):
-    print(S.min())
-    S.pop()
-print(S.min())
 #-------------------------------------------------------------
 # Time: O(1) - for all operations
 # Space: O(n) - n elements in stack
 #-------------------------------------------------------------
 
-# class Test(unittest.TestCase):
+class Test(unittest.TestCase):
+    def test_push_pop(self):
+        stack = Stack()
+        stack.push(3)
+        stack.push(5)
+        stack.push(2)
 
-# if __name__ == '__main__':
-#     unittest.main()
+        self.assertEqual(stack.pop(), 2)
+        self.assertEqual(stack.pop(), 5)
+        self.assertEqual(stack.pop(), 3)
+        self.assertEqual(stack.pop(), None) 
+
+    def test_min(self):
+        stack = Stack()
+        stack.push(3)
+        stack.push(5)
+        stack.push(2)
+
+        self.assertEqual(stack.min(), 2)
+
+        stack.pop()
+
+        self.assertEqual(stack.min(), 3)
+
+    def test_empty_stack(self):
+        stack = Stack()
+
+        self.assertEqual(stack.pop(), None)
+        self.assertEqual(stack.min(), None)
+
+    def test_min_with_duplicates(self):
+        stack = Stack()
+        stack.push(3)
+        stack.push(5)
+        stack.push(2)
+        stack.push(2)
+
+        self.assertEqual(stack.min(), 2)
+
+        stack.pop()
+
+        self.assertEqual(stack.min(), 2)
+
+    def test_min_empty_stack(self):
+        stack = Stack()
+
+        self.assertEqual(stack.min(), None)
+
+    def test_min_after_popping_all_elements(self):
+        stack = Stack()
+        stack.push(3)
+        stack.push(5)
+        stack.push(2)
+
+        stack.pop()
+        stack.pop()
+        stack.pop()
+
+        self.assertEqual(stack.min(), None)
+        
+if __name__ == '__main__':
+    unittest.main()
