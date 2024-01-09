@@ -53,20 +53,17 @@ class SetOfStacks:
         self.latest = None
 
     def __str__(self):
-        if self.is_empty():
+        if not self.set:
             print('No Sets')
         for i in range(len(self.set)):
             print(f'Stack {i}:', self.set[i].__str__())
             
     def push(self, value):
-        if self.is_empty() or self.set[self.latest].num == self.threshold:
+        if not self.set or self.set[self.latest].num == self.threshold:
             new_stack = SetOfStacks_Stack()
             new_stack.push(value)
 
-            if self.is_empty():
-                self.latest = 0
-            else:
-                self.latest += 1
+            self.latest = self.latest + 1 if self.set else 0
 
             self.set.append(None)
 
@@ -76,7 +73,7 @@ class SetOfStacks:
             self.set[self.latest].push(value)
 
     def pop(self):
-        if self.is_empty():
+        if not self.set:
             return None
         
         if self.set[self.latest].num == 1:
@@ -89,12 +86,9 @@ class SetOfStacks:
             return old_value
         
         return self.set[self.latest].pop()
-    
-    def is_empty(self):
-        return not self.set
 #-------------------------------------------------------------
-# Time: 
-# Space: 
+# Time: O(1)
+# Space: O(n+m) - n is the # of stacks in the set, and m is the total # of elements in all stacks
 #-------------------------------------------------------------
 # FOLLOW UP: Implement a function popAt(index) which performs a pop operation on a specific sub-stack
 #-------------------------------------------------------------
