@@ -76,7 +76,7 @@ class SetOfStacks:
         if not self.set:
             return None
         
-        if self.set[self.latest].num == 1:
+        if self.set[self.latest].num <= 1:
 
             old_value = self.set[self.latest].pop()
 
@@ -93,22 +93,23 @@ class SetOfStacks:
 # FOLLOW UP: Implement a function popAt(index) which performs a pop operation on a specific sub-stack
 #-------------------------------------------------------------
     def popAt(self,index):
-        pass
+        if self.latest is None or index > self.latest or index < 0:
+            return IndexError('Invalid Index value.')
+        
+        elif self.set[index].num == 1:
+            old_value = self.set[index].pop()
 
-SS = SetOfStacks(3)
+            if index == self.latest:
+                self.latest = self.latest - 1 if self.latest > 0 else None
+                self.set.pop()
 
-SS.push(1)
-SS.push(2)
-SS.push(3)
-SS.push(2)
-SS.push(2)
+            return old_value
 
-SS.pop()
-SS.__str__()
+        return self.set[index].pop()
 
 #-------------------------------------------------------------
-# Time: 
-# Space: 
+# Time: O(1)
+# Space: O(1)
 #-------------------------------------------------------------
 
 # class Test(unittest.TestCase):
