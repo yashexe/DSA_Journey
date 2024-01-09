@@ -59,20 +59,15 @@ class SetOfStacks:
             print(f'Stack {i}:', self.set[i].__str__())
             
     def push(self, value):
-        if self.is_empty():
+        if self.is_empty() or self.set[self.latest].num == self.threshold:
             new_stack = SetOfStacks_Stack()
             new_stack.push(value)
 
-            self.latest = 0
-            self.set.append(None)
+            if self.is_empty():
+                self.latest = 0
+            else:
+                self.latest += 1
 
-            self.set[self.latest] = new_stack
-
-        elif not self.is_empty() and self.set[self.latest].num == self.threshold:
-            new_stack = SetOfStacks_Stack()
-            new_stack.push(value)
-
-            self.latest += 1
             self.set.append(None)
 
             self.set[self.latest] = new_stack
@@ -84,22 +79,13 @@ class SetOfStacks:
         if self.is_empty():
             return None
         
-        elif not self.is_empty() and self.latest == 0 and self.set[self.latest].num == 1:
-
-            old_value = self.set[self.latest].pop()
-            
-            self.set = []
-            self.latest = None
-
-            return old_value
-        
-        elif not self.is_empty() and self.latest > 0 and self.set[self.latest].num == 1:
+        if self.set[self.latest].num == 1:
 
             old_value = self.set[self.latest].pop()
 
             self.set.pop()
-            self.latest -= 1
-
+            self.latest = self.latest - 1 if self.latest > 0 else None
+                
             return old_value
         
         return self.set[self.latest].pop()
