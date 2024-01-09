@@ -5,11 +5,6 @@
 import unittest
 
 #-------------------------------------------------------------
-#All functions need O(1) time complexity
-#set/dict not possible as they are not ordered
-#min implemented with recursion not possible as it'll be >O(1)
-#Another Stack defined in __init__? Cant be ordered though, with O(1) at least..
-
 class Stack_Node:
     def __init__(self, value, next_node = None):
         self.value = value
@@ -21,12 +16,10 @@ class Stack_Node:
 class Stack:
     def __init__(self):
         self.top = None
-        self.curr_min = None
         self.ordered_mins = []
 
     def push(self, value):
-        if not self.curr_min or value <= self.curr_min:
-            self.curr_min = value
+        if not self.ordered_mins or value <= self.ordered_mins[-1]:
             self.ordered_mins.append(value)
 
         new_node = Stack_Node(value)
@@ -42,7 +35,6 @@ class Stack:
 
         if old_value == self.ordered_mins[-1]:
             self.ordered_mins.pop()
-            self.curr_min = self.ordered_mins[-1] if self.ordered_mins else None
 
         self.top = self.top.next
 
@@ -52,8 +44,22 @@ class Stack:
         if self.top is None:
             return None
 
-        return self.curr_min
+        return self.ordered_mins[-1]
 
+S = Stack()
+
+S.push(4)
+S.push(3)
+S.push(1)
+S.push(2)
+S.push(1)
+S.push(2)
+S.push(1)
+
+for i in range(4):
+    print(S.min())
+    S.pop()
+print(S.min())
 #-------------------------------------------------------------
 # Time: O(1) - for all operations
 # Space: O(n) - n elements in stack
