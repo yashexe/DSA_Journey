@@ -6,6 +6,7 @@
 # (that is, pop() should return the same values as it would if there were just a single stack).
 
 import unittest
+
 #-------------------------------------------------------------
 class SetOfStacks_Node:
     def __init__(self, value, next = None):
