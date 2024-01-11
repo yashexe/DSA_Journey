@@ -50,7 +50,7 @@ class MyQueue:
     def enqueue(self, value):
         self.queue.push(value)
 
-    def dequeue(self):
+    def dequeue_1(self):
         if self.is_empty():
             return None
 
@@ -64,11 +64,39 @@ class MyQueue:
         curr.next = None
         
         return old_value
-
-    def peak(self):
+    
+    def dequeue_2(self):
         if self.is_empty():
             return None
+        
+        reverse_stack = Stack()
 
+        while self.queue.top is not None:
+            reverse_stack.push(self.queue.pop())
+
+        old_value = reverse_stack.pop()
+
+        while reverse_stack.top is not None:
+            self.queue.push(reverse_stack.pop())
+
+        
+        return old_value
+    
+    def peak_1(self):
+        if self.is_empty():
+            return None
+        
+        curr = self.queue.top
+
+        while curr.next:
+            curr = curr.next
+        
+        return curr.value
+    
+    def peak_2(self):
+        if self.is_empty():
+            return None
+        
         curr = self.queue.top
 
         while curr.next:
@@ -84,12 +112,12 @@ Q.enqueue(2)
 Q.enqueue(3)
 
 print(Q.__str__())
-print(Q.peak())
+print(Q.peak_1())
 
-Q.dequeue()
+Q.dequeue_2()
 
 print(Q.__str__())
-print(Q.peak())
+print(Q.peak_1())
 
 Q.enqueue(3)
 
