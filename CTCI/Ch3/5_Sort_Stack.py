@@ -41,13 +41,33 @@ class Stack:
         return self.top is None
 
 def sort_stack(s1):
-    if s1.is_empty():
-        return None
-    
-    pass
+    if s1.is_empty() or s1.top.next is None:
+        return
+
+    unordered = False
+    curr = s1.top
+
+    while True:
+        if curr.value > curr.next.value:
+            print(s1.__str__())
+            temp = curr.value
+            curr.value = curr.next.value
+            curr.next.value = temp
+
+            unordered = True
+
+        if not unordered and curr.next.next is None:
+            print(s1.__str__())
+            return
+        elif unordered and curr.next.next is None:
+            unordered = False
+            curr = s1.top
+        else:
+            curr = curr.next
+
 #-------------------------------------------------------------
-# Time: O()
-# Space: O()
+# Time: O(n^2)
+# Space: O(1)
 #-------------------------------------------------------------
     
 # class Test(unittest.TestCase):
