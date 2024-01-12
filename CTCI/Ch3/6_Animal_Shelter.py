@@ -30,6 +30,7 @@ class Animal_Shelter:
     def dequeue_any(self):
         if self.is_empty():
             return None
+
         adoptee = self.oldest.pet
         self.oldest = self.oldest.next
         return adoptee
@@ -42,10 +43,10 @@ class Animal_Shelter:
         
         curr = self.oldest
 
-        while curr.next.id != 'dog':
-            if curr.next is None:
-                return None
+        while curr.next and curr.next.id != 'dog':
             curr = curr.next
+        if curr.next is None:
+            return None
         
         adoptee = curr.next.pet
         curr.next = curr.next.next
@@ -60,10 +61,10 @@ class Animal_Shelter:
         
         curr = self.oldest
 
-        while curr.next.id != 'cat':
-            if curr.next is None:
-                return None
+        while curr.next and curr.next.id != 'cat':
             curr = curr.next
+        if curr.next is None:
+            return None
         
         adoptee = curr.next.pet
         curr.next = curr.next.next
@@ -71,13 +72,42 @@ class Animal_Shelter:
         return adoptee
 
     def is_empty(self):
-        return self.newest is None
+        return self.oldest is None
 #-------------------------------------------------------------
-# Time: 
-# Space: 
+# Time: O(1), O(n) - for dequeue_dog/cat
+# Space: O(1)
 #-------------------------------------------------------------
-    
-# class Test(unittest.TestCase):
 
-# if __name__ == '__main__':
-#     unittest.main()
+class Test(unittest.TestCase):
+    def test_enqueue_and_dequeue_any(self):
+        shelter = Animal_Shelter()
+        shelter.enqueue('Buddy', 'dog')
+        shelter.enqueue('Whiskers', 'cat')
+        shelter.enqueue('Max', 'dog')
+
+        self.assertEqual(shelter.dequeue_any(), 'Buddy')
+        self.assertEqual(shelter.dequeue_any(), 'Whiskers')
+        self.assertEqual(shelter.dequeue_any(), 'Max')
+        self.assertIsNone(shelter.dequeue_any())
+
+    def test_enqueue_and_dequeue_dog(self):
+        shelter = Animal_Shelter()
+        shelter.enqueue('Buddy', 'dog')
+        shelter.enqueue('Whiskers', 'cat')
+        shelter.enqueue('Max', 'dog')
+
+        self.assertEqual(shelter.dequeue_dog(), 'Buddy')
+        self.assertEqual(shelter.dequeue_dog(), 'Max')
+        self.assertIsNone(shelter.dequeue_dog())
+
+    def test_enqueue_and_dequeue_cat(self):
+        shelter = Animal_Shelter()
+        shelter.enqueue('Buddy', 'dog')
+        shelter.enqueue('Whiskers', 'cat')
+        shelter.enqueue('Max', 'dog')
+
+        self.assertEqual(shelter.dequeue_cat(), 'Whiskers')
+        self.assertIsNone(shelter.dequeue_cat())
+        
+if __name__ == '__main__':
+    unittest.main()
