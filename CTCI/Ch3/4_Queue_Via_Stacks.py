@@ -97,13 +97,17 @@ class MyQueue:
         if self.is_empty():
             return None
         
-        curr = self.queue.top
+        reverse_stack = Stack()
 
-        while curr.next:
-            curr = curr.next
-        
-        return curr.value
+        while self.queue.top is not None:
+            reverse_stack.push(self.queue.pop())
 
+        peak_value = reverse_stack.peak()
+
+        while reverse_stack.top is not None:
+            self.queue.push(reverse_stack.pop())
+
+        return peak_value
     def is_empty(self):
         return self.queue.top is None
 Q = MyQueue()
@@ -117,14 +121,14 @@ print(Q.peak_1())
 Q.dequeue_2()
 
 print(Q.__str__())
-print(Q.peak_1())
+print(Q.peak_2())
 
 Q.enqueue(3)
 
 print(Q.__str__())
 #-------------------------------------------------------------
-# Time:
-# Space:
+# Time: O(1) - enqueue, is_empty | O(2) - dequeue(1 and 2), peak(1 and 2)
+# Space: O(1) - enqueue, is_empty, dequeue_1, peak_1 | O(n) - dequeue_2, peak_2
 #-------------------------------------------------------------
     
 # class Test(unittest.TestCase):
