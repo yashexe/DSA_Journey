@@ -64,7 +64,7 @@ def sort_stack(s1):
             curr = curr.next
 #-------------------------------------------------------------
 # Time: O(n^2)
-# Space: O(1)
+# Space: O(1) - No additional data structures
 #-------------------------------------------------------------
     
 class Test(unittest.TestCase):
@@ -105,6 +105,6 @@ class Test(unittest.TestCase):
         stack.push(5)
         sort_stack(stack)
         self.assertEqual(str(stack), "1->2->4->5->7")
-        
+
 if __name__ == '__main__':
     unittest.main()
