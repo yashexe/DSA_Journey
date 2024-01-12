@@ -5,7 +5,7 @@ import unittest
 class Node:
     def __init__(self,value,next=None):
         self.value = value
-        self.next = None
+        self.next = next
 
 class Stack:
     def __init__(self):
@@ -14,15 +14,15 @@ class Stack:
     def __str__(self):
         curr = self.top
         stack_list = []
+        
         while curr:
             stack_list.append(str(curr.value))
             curr = curr.next
         return '->'.join(stack_list)
     
     def push(self,value):
-        new_value = Node(value)
+        new_value = Node(value, self.top)
 
-        new_value.next = self.top
         self.top = new_value
 
     def pop(self):
@@ -34,7 +34,7 @@ class Stack:
 
         return old_value
     
-    def peak(self):
+    def peek(self):
         return self.top.value
     
     def is_empty(self):
@@ -85,7 +85,7 @@ class MyQueue:
         
         return old_value
     
-    def peak_1(self):
+    def peek_1(self):
         if self.is_empty():
             return None
         
@@ -96,7 +96,7 @@ class MyQueue:
         
         return curr.value
     
-    def peak_2(self):
+    def peek_2(self):
         if self.is_empty():
             return None
         
@@ -105,7 +105,7 @@ class MyQueue:
         while self.queue.top is not None:
             reverse_stack.push(self.queue.pop())
 
-        peak_value = reverse_stack.peak()
+        peak_value = reverse_stack.peek()
 
         while reverse_stack.top is not None:
             self.queue.push(reverse_stack.pop())
@@ -114,8 +114,8 @@ class MyQueue:
     def is_empty(self):
         return self.queue.top is None
 #-------------------------------------------------------------
-# Time: O(1) - enqueue, is_empty | O(2) - dequeue(1 and 2), peak(1 and 2)
-# Space: O(1) - enqueue, is_empty, dequeue_1, peak_1 | O(n) - dequeue_2, peak_2
+# Time: O(1) - enqueue, is_empty | O(2) - dequeue(1 and 2), peek(1 and 2)
+# Space: O(1) - enqueue, is_empty, dequeue_1, peek_1 | O(n) - dequeue_2, peek_2
 #-------------------------------------------------------------
     
 class Test(unittest.TestCase):
@@ -148,14 +148,14 @@ class Test(unittest.TestCase):
         my_queue.enqueue(1)
         my_queue.enqueue(2)
         my_queue.enqueue(3)
-        self.assertEqual(my_queue.peak_1(), 1)
+        self.assertEqual(my_queue.peek_1(), 1)
 
     def test_peak_2(self):
         my_queue = MyQueue()
         my_queue.enqueue(1)
         my_queue.enqueue(2)
         my_queue.enqueue(3)
-        self.assertEqual(my_queue.peak_2(), 1)
+        self.assertEqual(my_queue.peek_2(), 1)
 
     def test_is_empty(self):
         my_queue = MyQueue()

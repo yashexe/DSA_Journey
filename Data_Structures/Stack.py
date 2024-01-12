@@ -16,8 +16,7 @@ class Stack:
         self.top = None
 
     def push(self, value):
-        new_node = Stack_Node(value)
-        new_node.next = self.top
+        new_node = Stack_Node(value, self.top)
 
         self.top = new_node
 
