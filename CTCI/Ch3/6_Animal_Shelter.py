@@ -8,7 +8,7 @@
 
 import unittest
 #-------------------------------------------------------------
-class Node:
+class Pet:
     def __init__(self, pet, id, next = None,):
         self.pet = pet
         self.id = id
@@ -20,16 +20,58 @@ class Animal_Shelter:
         self.oldest = None
 
     def enqueue(self,pet,id):
-        pass
+        new_pet = Pet(pet,id)
+        if self.is_empty():
+            self.newest = self.oldest = new_pet
+        else:
+            self.newest.next = new_pet
+            self.newest = new_pet
 
     def dequeue_any(self):
-        pass
+        if self.is_empty():
+            return None
+        adoptee = self.oldest.pet
+        self.oldest = self.oldest.next
+        return adoptee
 
     def dequeue_dog(self):
-        pass
+        if self.is_empty():
+            return None
+        elif self.oldest.id == 'dog':
+            return self.dequeue_any()
+        
+        curr = self.oldest
+
+        while curr.next.id != 'dog':
+            if curr.next is None:
+                return None
+            curr = curr.next
+        
+        adoptee = curr.next.pet
+        curr.next = curr.next.next
+
+        return adoptee
 
     def dequeue_cat(self):
-        pass
+        if self.is_empty():
+            return None
+        elif self.oldest.id == 'cat':
+            return self.dequeue_any()
+        
+        curr = self.oldest
+
+        while curr.next.id != 'cat':
+            if curr.next is None:
+                return None
+            curr = curr.next
+        
+        adoptee = curr.next.pet
+        curr.next = curr.next.next
+
+        return adoptee
+
+    def is_empty(self):
+        return self.newest is None
 #-------------------------------------------------------------
 # Time: 
 # Space: 
