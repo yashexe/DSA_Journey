@@ -53,7 +53,10 @@ class MyQueue:
     def dequeue_1(self):
         if self.is_empty():
             return None
-
+        
+        if self.queue.top.next is None:
+            return self.queue.pop()
+        
         curr = self.queue.top
 
         while curr.next.next:
@@ -110,28 +113,57 @@ class MyQueue:
         return peak_value
     def is_empty(self):
         return self.queue.top is None
-Q = MyQueue()
-Q.enqueue(1)
-Q.enqueue(2)
-Q.enqueue(3)
-
-print(Q.__str__())
-print(Q.peak_1())
-
-Q.dequeue_2()
-
-print(Q.__str__())
-print(Q.peak_2())
-
-Q.enqueue(3)
-
-print(Q.__str__())
 #-------------------------------------------------------------
 # Time: O(1) - enqueue, is_empty | O(2) - dequeue(1 and 2), peak(1 and 2)
 # Space: O(1) - enqueue, is_empty, dequeue_1, peak_1 | O(n) - dequeue_2, peak_2
 #-------------------------------------------------------------
     
-# class Test(unittest.TestCase):
+class Test(unittest.TestCase):
 
-# if __name__ == '__main__':
-#     unittest.main()
+    def test_enqueue(self):
+        my_queue = MyQueue()
+        my_queue.enqueue(1)
+        my_queue.enqueue(2)
+        my_queue.enqueue(3)
+        self.assertEqual(str(my_queue), "3->2->1")
+
+    def test_dequeue_1(self):
+        my_queue = MyQueue()
+        my_queue.enqueue(1)
+        my_queue.enqueue(2)
+        my_queue.enqueue(3)
+        self.assertEqual(my_queue.dequeue_1(), 1)
+        self.assertEqual(str(my_queue), "3->2")
+
+    def test_dequeue_2(self):
+        my_queue = MyQueue()
+        my_queue.enqueue(1)
+        my_queue.enqueue(2)
+        my_queue.enqueue(3)
+        self.assertEqual(my_queue.dequeue_2(), 1)
+        self.assertEqual(str(my_queue), "3->2")
+
+    def test_peak_1(self):
+        my_queue = MyQueue()
+        my_queue.enqueue(1)
+        my_queue.enqueue(2)
+        my_queue.enqueue(3)
+        self.assertEqual(my_queue.peak_1(), 1)
+
+    def test_peak_2(self):
+        my_queue = MyQueue()
+        my_queue.enqueue(1)
+        my_queue.enqueue(2)
+        my_queue.enqueue(3)
+        self.assertEqual(my_queue.peak_2(), 1)
+
+    def test_is_empty(self):
+        my_queue = MyQueue()
+        self.assertTrue(my_queue.is_empty())
+        my_queue.enqueue(1)
+        self.assertFalse(my_queue.is_empty())
+        my_queue.dequeue_1()
+        self.assertTrue(my_queue.is_empty())
+
+if __name__ == '__main__':
+    unittest.main()
