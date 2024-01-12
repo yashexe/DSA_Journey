@@ -4,10 +4,6 @@
 # operations. push, pop, peek, and is_empty.
 
 import unittest
-
-# Queue via Stacks: Implement a MyQueue class which implements a queue using two stacks.
-
-import unittest
 #-------------------------------------------------------------
 class Node:
     def __init__(self,value,next=None):
@@ -44,6 +40,11 @@ class Stack:
     def is_empty(self):
         return self.top is None
 
+def sort_stack(s1):
+    if s1.is_empty():
+        return None
+    
+    pass
 #-------------------------------------------------------------
 # Time: O()
 # Space: O()
