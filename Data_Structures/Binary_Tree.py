@@ -34,13 +34,52 @@ def search(node,data):
     elif data > node.data:
         return search(node.right,data)
 
+def delete(node,data):
+    if node is None:
+        return None
+    
+    elif data < node.data:
+        node.left = delete(node.left,data)
+    elif data > node.data:
+        node.right = delete(node.right,data)
 
-# BST = Tree_Node(10)
+    elif data == node.data:
+        if node.right is None:
+            return node.left
+        elif node.left is None:
+            return node.right
 
-# insert(BST, 2)
-# insert(BST, 3)
-# insert(BST, 4)
-# insert(BST, 12)
-# insert(BST, 11)
+        node.data = minimum(node.right)
 
-# print(search(BST,11).data)
+        node.right = delete(node.right, node.data)
+
+    return node
+
+def minimum(node):
+    while node.left:
+        node = node.left
+    return node.data
+
+def maximum(node):
+    while node.right:
+        node = node.right
+    return node.data
+
+def pre_order_traverse(node):
+    if node is not None:
+        print(node.data, end=' ')
+        pre_order_traverse(node.left)
+        pre_order_traverse(node.right)
+
+def in_order_traverse(node):
+    if node is not None:
+        in_order_traverse(node.left)
+        print(node.data, end=' ')
+        in_order_traverse(node.right)
+
+def post_order_traverse(node):
+    if node is not None:
+        post_order_traverse(node.left)
+        post_order_traverse(node.right)
+        print(node.data, end=' ')
+
