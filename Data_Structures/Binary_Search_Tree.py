@@ -57,15 +57,13 @@ def delete(node,data):
 
 def get_height(node, height = 0):
     if node is not None:
-        height+=1
 
         left = get_height(node.left,height)
         right = get_height(node.right,height)
 
-        return left if left > right else right
+        return max(left,right) + 1
     
-    else:
-        return height
+    return height
 
 
 def get_minimum(node):
