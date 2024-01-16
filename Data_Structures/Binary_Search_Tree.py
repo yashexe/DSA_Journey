@@ -49,18 +49,31 @@ def delete(node,data):
         elif node.left is None:
             return node.right
 
-        node.data = minimum(node.right)
+        node.data = get_minimum(node.right)
 
         node.right = delete(node.right, node.data)
 
     return node
 
-def minimum(node):
+def get_height(node, height = 0):
+    if node is not None:
+        height+=1
+
+        left = get_height(node.left,height)
+        right = get_height(node.right,height)
+
+        return left if left > right else right
+    
+    else:
+        return height
+
+
+def get_minimum(node):
     while node.left:
         node = node.left
     return node.data
 
-def maximum(node):
+def get_maximum(node):
     while node.right:
         node = node.right
     return node.data
@@ -83,3 +96,13 @@ def post_order_traverse(node):
         post_order_traverse(node.right)
         print(node.data, end=' ')
 
+BST = Tree_Node(10)
+
+insert(BST,7)
+insert(BST,13)
+insert(BST,12)
+insert(BST,11)
+insert(BST,4)
+insert(BST,8)
+
+print(get_height(BST))
