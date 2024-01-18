@@ -12,7 +12,7 @@ public class BST {
             Node curr = root;
             insertRecursive(curr, n);
         }
-        
+
         else root = new Node(n, null, null);
     }
     private void insertRecursive(Node curr, int n) {
@@ -22,9 +22,30 @@ public class BST {
             else curr.right = new Node(n, null, null);
         }
         else if (n < curr.data) {
-            if (curr.left != null) insertRecursive(curr.left, n);
+            if (curr.right != null) insertRecursive(curr.left, n);
 
             else curr.left = new Node(n, null, null);
         }
+    }
+
+    public int getHeight() {
+        if (isEmpty()) return -1;
+
+        Node curr = root;
+
+        return getHeightRecursive(curr);
+    }
+    private int getHeightRecursive(Node curr) {
+        if(curr.left != null){
+            int left = getHeightRecursive(curr.left);
+        } 
+        else if(curr.right != null) {
+            int right = getHeightRecursive(curr.right);
+        }
+
+        return Math.max(left, right);
+    }
+    public boolean isEmpty() {
+        return root == null;
     }
 }
