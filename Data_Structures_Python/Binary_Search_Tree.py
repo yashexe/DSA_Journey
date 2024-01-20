@@ -93,14 +93,3 @@ def post_order_traverse(node):
         post_order_traverse(node.left)
         post_order_traverse(node.right)
         print(node.data, end=' ')
-
-BST = Tree_Node(10)
-
-insert(BST,7)
-insert(BST,13)
-insert(BST,12)
-insert(BST,11)
-insert(BST,4)
-insert(BST,8)
-
-print(get_height(BST))
