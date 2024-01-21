@@ -6,7 +6,7 @@ public class BST {
     private Node root;
 
     public BST(Node root){
-        root = null;
+        this.root = root;
     }
 
     public void insert(int n) {
@@ -70,25 +70,45 @@ public class BST {
         else return search(root.left, data);
     }
 
-    public void printPreorder(Node root) {
+    public void printPreorder() {printPreorder(root);}
+    
+    private void printPreorder(Node root) {
         if (root != null) {
-            System.out.println(root.data);
+            System.out.print(root.data + " ");
             printPreorder(root.left);
             printPreorder(root.right);
         }   
     }
-    public void printInorder(Node root) {
+
+    public void printInorder() {printInorder(root);}
+    private void printInorder(Node root) {
         if (root != null) {
             printInorder(root.left);
-            System.out.println(root.data);
+            System.out.print(root.data + " ");
             printInorder(root.right);
         }
     }
-    public void printPostorder(Node root) {
+
+    public void printPostorder() {printPostorder(root);}
+    private void printPostorder(Node root) {
         if (root != null) {
             printPostorder(root.left);
             printPostorder(root.right);
-            System.out.println(root.data);
+            System.out.print(root.data + " ");
         }
+    }
+
+    public int getMin() {
+        while(root.left != null) {
+            root = root.left;
+        }
+        return root.data;
+    }
+
+    public int getMax() {
+        while(root.right != null) {
+            root = root.right;
+        }
+        return root.data;
     }
 }

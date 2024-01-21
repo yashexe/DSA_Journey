@@ -1,4 +1,5 @@
 package Data_Structures_Java.BST;
+
 public class Node {
     int data;
     Node left;
