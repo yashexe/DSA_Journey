@@ -73,6 +73,25 @@ public class LinkedList {
 
         for (int n: ll) System.out.print(n + "->");
     }
+
+    public int pop() {
+        if (head.next == null) {
+            int popped = head.data;
+            head = null;
+            return popped;
+        }
+        Node curr = head;
+
+        while(curr.next.next != null) {
+            curr = curr.next;
+        }
+
+        int popped = curr.next.data;
+        curr.next = null;
+
+        return popped;
+    }
+
     public boolean isEmpty() {
         if (head == null) return true;
         return false;
