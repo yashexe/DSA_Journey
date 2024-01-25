@@ -11,13 +11,6 @@ class Node:
     def add_children(self,child):
         self.children.append(child)
 
-class Graph:
-    def __init__(self):
-        self.nodes = []
-
-    def add_node(self,name):
-        self.nodes.append(Node(name))
-
 def checkRoute(n1,n2, nodeDict = {}):
     if n1 == n2:
         return True
