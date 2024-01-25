@@ -31,7 +31,7 @@ def checkRoute(n1,n2, nodeDict = {}):
         nodeDict[child] = 1
         presence = checkRoute(child,n2,nodeDict)
 
-        if presence is True:
+        if presence:
             break
 
     return presence
