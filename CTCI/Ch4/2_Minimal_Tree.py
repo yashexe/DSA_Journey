@@ -6,27 +6,15 @@ from Binary_Search_Tree import Tree_Node
 #-------------------------------------------------------------
 
 def minimalTree(arr):
-    insert(arr)
-
-def insert(arr, root = None):
-    if root is None:
-        root = Tree_Node(arr.pop(getMidpoint(arr)))
-
-    elif arr == []:
+    if not arr:
         return
-    elif root and arr:
-        pass
+    root = Tree_Node(arr.pop((len(arr)) - 1) // 2)
     
-def getMidpoint(arr):
-    return (len(arr) - 1) // 2
+    minimalTreeRecursive(arr,root)
 
-def travserse(data, root):
-    if not root.left and not root.right:
-        return root
-    if root.left and root.left > data:
-        root = travserse(data, root.left)
-    if root.left and root.right < data:
-        root = travserse(data, root.right)
+def minimalTreeRecursive(arr, node = None):
+    if not arr:
+        return
 #-------------------------------------------------------------
 # Time: 
 # Space: 
