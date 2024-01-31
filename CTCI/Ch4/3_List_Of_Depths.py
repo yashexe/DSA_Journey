@@ -32,6 +32,18 @@ class SLL:
                 curr = curr.next
             curr.next = Node(data)
 
+    def to_list(self):
+        if not self.head:
+            return []
+        
+        curr = self.head
+        arr = []
+
+        while curr:
+            arr.append(curr.data)
+            curr = curr.next
+
+        return arr
 def listDepths(root):
     SLL_list = []
     
@@ -59,18 +71,17 @@ def getSLL(root,SLL_list, currDepth = 0):
 
 class Test(unittest.TestCase):
     def setUp(self):
-        # Create a sample binary search tree for testing
-        # Modify this part based on your actual implementation
         self.root = Tree_Node(4)
         values = [ 2, 6, 1, 3, 5, 7]
         for value in values:
-            self.root = insert(self.root, value)
+            insert(self.root, value)
 
     def test_list_depths_balanced_tree(self):
-        # Test on a balanced tree
         result = listDepths(self.root)
-        # Assuming you know the expected results for the test tree
-        expected_result = [SLL(), SLL(), SLL(), SLL()]
+        result = [i.to_list() for i in result]
+        
+        expected_result = [SLL() for i in range(4)]
+        
         expected_result[0].add(4)
         expected_result[1].add(2)
         expected_result[1].add(6)
@@ -79,34 +90,38 @@ class Test(unittest.TestCase):
         expected_result[2].add(5)
         expected_result[2].add(7)
 
-        # Check that the result matches the expected output
+        expected_result = [i.to_list() for i in expected_result]
+        expected_result.pop()
+        
         self.assertEqual(result, expected_result)
 
     def test_list_depths_unbalanced_tree(self):
-        # Test on an unbalanced tree
+        
         values = [2, 3, 4, 5, 6, 7]
         unbalanced_root = Tree_Node(1)
         
         for value in values:
-            unbalanced_root = insert(unbalanced_root, value)
+            insert(unbalanced_root, value)
 
         result = listDepths(unbalanced_root)
-        # Assuming you know the expected results for the test tree
-        expected_result = [SLL(), SLL(), SLL(), SLL(), SLL(), SLL(), SLL()]
+
+        result = [i.to_list() for i in result]
+       
+        expected_result = [SLL() for i in range(7)]
+
         for i in range(7):
             expected_result[i].add(i + 1)
 
-        # Check that the result matches the expected output
+        expected_result = [i.to_list() for i in expected_result]
+    
         self.assertEqual(result, expected_result)
 
     def test_list_depths_empty_tree(self):
-        # Test on an empty tree
+    
         empty_root = None
         result = listDepths(empty_root)
-        # Expect an empty list since the tree is empty
+    
         self.assertEqual(result, [])
-
-    # Add more test cases if needed
 
 if __name__ == "__main__":
     unittest.main()
