@@ -9,12 +9,11 @@ import unittest
 
 def URLify(s,n):
     for i in range(n):
-        print(s[i],i,n)
         if s[i] == ' ':
             s = s[:i]  + '%20' + s[i+1:]
             if i - n <= -3:
                 i+=3
-    return s
+    return s.strip()
 #Time: O(n)
 #Space: O(max(m)) m is the number of spaces
 #-------------------------------------------------------------
