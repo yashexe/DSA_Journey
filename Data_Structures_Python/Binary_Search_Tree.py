@@ -93,3 +93,6 @@ def post_order_traverse(node):
         post_order_traverse(node.left)
         post_order_traverse(node.right)
         print(node.data, end=' ')
+
+def is_empty(node):
+    return node is None
