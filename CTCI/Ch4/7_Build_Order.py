@@ -7,8 +7,30 @@
 #   Output: [f, e, a, b, d, c]
 
 import unittest
-from Binary_Search_Tree import Tree_Node,insert
 #-------------------------------------------------------------
+class Graph:
+    def __init__(self):
+        self.adjacencyList = {}
+    
+    def __str__(self):
+        for x in self.adjacencyList:
+            print(f"x: {x}",
+                  f", y: {self.adjacencyList[x]}" if self.adjacencyList[x] != [] else "")
+
+    def add_vertex(self, x):
+        if x not in self.adjacencyList:
+            self.adjacencyList[x] = []
+        else:
+            raise Exception("This vertice already exists!")
+        
+    def add_edge(self, x, y):
+        if x not in self.adjacencyList:
+            self.add_vertex(x)
+        if y not in self.adjacencyList:
+            self.add_vertex(y)
+
+        self.adjacencyList[x] = y
+
 def buildOrder(projects, dependancies):
     if dependancies is None:
         return projects
@@ -28,6 +50,17 @@ def swap(projects, i, j):
     temp = projects[i]
     projects[i] = projects[j]
     projects[j] = temp
+
+
+directed = Graph()
+
+directed.add_edge("a","d")
+directed.add_edge("f","b")
+directed.add_edge("b","d")
+directed.add_edge("f","a")
+directed.add_edge("d","c")
+directed.add_vertex("e")
+directed.__str__()
 #-------------------------------------------------------------
 # Time:
 # Space:
