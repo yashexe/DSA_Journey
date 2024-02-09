@@ -4,13 +4,29 @@ import unittest
 from Binary_Search_Tree import Tree_Node,insert
 #-------------------------------------------------------------
 def findSuccessor(node):
-    pass
+    if node.up is None and node.left is None and node.right is None:
+        return None
+
+    curr = node
+    while curr.up is not None:
+        curr = curr.up
+
+    arr = []
+    toInOrderArray(curr, arr)
+
+    for i in range(len(arr)):
+        return arr[i + 1] if arr[i] == node and i < len(arr) - 1 else None
+
+def toInOrderArray(root, arr):
+    if root is None: return
+
+    toInOrderArray(root.left, arr)
+
+    arr.append(root)
+
+    toInOrderArray(root.right, arr)
+
 #-------------------------------------------------------------
-# Time: 
-# Space: 
+# Time: O(n) iterates through all nodes
+# Space: O(n) - Stores all nodes in tree
 #-------------------------------------------------------------
-# class Test(unittest.TestCase):
-#     def setUp(self):
-        
-# if __name__ == "__main__":
-#     unittest.main()
