@@ -8,34 +8,79 @@
 
 import unittest
 #-------------------------------------------------------------
-class Graph:
+class DirectedGraph:
     def __init__(self):
         self.adjacencyList = {}
     
     def __str__(self):
         for x in self.adjacencyList:
-            print(f"x: {x}",
-                  f", y: {self.adjacencyList[x]}" if self.adjacencyList[x] != [] else "")
+            print(f"{x}, {self.adjacencyList[x]}")
 
     def add_vertex(self, x):
-        if x not in self.adjacencyList:
-            self.adjacencyList[x] = []
-        else:
-            raise Exception("This vertice already exists!")
+        self.adjacencyList.setdefault(x, [])
         
     def add_edge(self, x, y):
-        if x not in self.adjacencyList:
-            self.add_vertex(x)
-        if y not in self.adjacencyList:
-            self.add_vertex(y)
-
-        self.adjacencyList[x] = y
+        self.add_vertex(x)
+        self.adjacencyList[x].append(y)
 
 def buildOrder(projects, dependancies):
-    if dependancies is None:
+    if projects == []:
+        raise Exception("No projects to be found!")
+    elif dependancies is None:
         return projects
     elif not checkValidDependancies(dependancies):
         raise Exception("Dependances are invalid!")
+    
+    directed = DirectedGraph()
+    
+    for project in projects:
+        directed.add_vertex(project)
+
+    for dependancy in dependancies:
+        directed.add_edge(dependancy[0],dependancy[1])
+
+    removeDups(projects, directed.adjacencyList)
+
+    directed.__str__()
+
+    return sort(directed.adjacencyList)
+def sort(adj, complete = []):
+    for key in adj:
+        if key in complete:
+            continue
+        complete.append(key)
+
+        for dependancy in adj[key]: 
+            if dependancy not in complete:
+                addDependancy(adj, dependancy, complete)
+                break
+            
+            complete.pop()
+
+            i = 0
+            while i < len(complete) and complete[i] != dependancy: i+=1 
+            
+            if complete[i] == dependancy:
+                complete.insert(i-1, key) if i-1 >= 0 else complete.insert(0, key)
+                break
+    return complete
+
+def addDependancy(adj, key, complete):
+    complete.append(key)
+    if key in adj:
+        for dependancy in adj[key]:
+            if dependancy not in complete:
+                addDependancy(adj, dependancy, complete)
+
+def removeDups(projects, adj):
+    remainingProjects = projects
+    for key1 in remainingProjects:
+        if adj[key1] == []:
+            for key2 in remainingProjects:
+                if adj[key2] != [] and key1 != key2 and key1 in adj[key2]:
+                    del adj[key1]
+                    remainingProjects = [project for project in remainingProjects if project != key1]
+                    break
 
 def checkValidDependancies(dependancies):
     for i in range(len(dependancies)):
@@ -46,21 +91,7 @@ def checkValidDependancies(dependancies):
                 return False
     return True
 
-def swap(projects, i, j):
-    temp = projects[i]
-    projects[i] = projects[j]
-    projects[j] = temp
-
-
-directed = Graph()
-
-directed.add_edge("a","d")
-directed.add_edge("f","b")
-directed.add_edge("b","d")
-directed.add_edge("f","a")
-directed.add_edge("d","c")
-directed.add_vertex("e")
-directed.__str__()
+print(buildOrder(["a","b","c","d","e","f"], [["a","d"],["f","b"],["b","d"],["f","a"],["d","c"]]))
 #-------------------------------------------------------------
 # Time:
 # Space:
