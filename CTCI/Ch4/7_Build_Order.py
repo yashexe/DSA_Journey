@@ -93,8 +93,8 @@ def checkValidDependancies(dependancies):
 
 print(buildOrder(["a","b","c","d","e","f"], [["a","d"],["f","b"],["b","d"],["f","a"],["d","c"]]))
 #-------------------------------------------------------------
-# Time:
-# Space:
+# Time: O(n^2) due to iterating over 'projects' with nested loop
+# Space: O(V + E + projects) needs space proportional to verticies and edges
 #-------------------------------------------------------------
 # class Test(unittest.TestCase):
 #     def setUp(self):
