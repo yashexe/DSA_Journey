@@ -31,15 +31,15 @@ def firstCommonAncestor(BT, n1, n2):
 def search(treeNode, node):
     if treeNode is None:
         return None
-    
     elif treeNode == node or treeNode.left == node or treeNode.right == node:
         return treeNode
 
-    result = search(treeNode.left, node)
-    if result is None:
-        result = search(treeNode.right, node)
+    left = search(treeNode.left, node)
     
-    return result
+    if left:
+        return left
+    return search(treeNode.right, node)
+
 
 def getHeight(treeNode, node, height=0):
     if treeNode is None:
@@ -47,15 +47,11 @@ def getHeight(treeNode, node, height=0):
     elif treeNode == node:
         return height
     
-    lHeight = getHeight(treeNode.left, node, height + 1)
-    rHeight = getHeight(treeNode.right, node, height + 1)
+    left = getHeight(treeNode.left, node, height + 1)
 
-    if lHeight is not None:
-        return lHeight
-
-    return rHeight
-
-
+    if left:
+        return left
+    return getHeight(treeNode.right, node, height + 1)
 #-------------------------------------------------------------
 # Time: O(n) - n is the height of the tree, exact number depends on ancestor
 # Space: O(1) - No additional space
