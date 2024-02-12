@@ -35,13 +35,10 @@ def buildOrder(projects, dependancies):
     
     for project in projects:
         directed.add_vertex(project)
-
     for dependancy in dependancies:
         directed.add_edge(dependancy[0],dependancy[1])
 
     removeDups(projects, directed.adjacencyList)
-
-    directed.__str__()
 
     return sort(directed.adjacencyList)
 def sort(adj, complete = []):
@@ -54,7 +51,6 @@ def sort(adj, complete = []):
             if dependancy not in complete:
                 addDependancy(adj, dependancy, complete)
                 break
-            
             complete.pop()
 
             i = 0
@@ -86,18 +82,22 @@ def checkValidDependancies(dependancies):
     for i in range(len(dependancies)):
         j = i + 1
         for j in range(len(dependancies)):
-            if dependancies[i][0] == dependancies[j][1] and dependancies[i][1] == dependancies[j][0]:
-                print(dependancies[i],dependancies[j])
-                return False
+            if dependancies[i][0] == dependancies[j][1] and dependancies[i][1] == dependancies[j][0]: return False
     return True
-
-print(buildOrder(["a","b","c","d","e","f"], [["a","d"],["f","b"],["b","d"],["f","a"],["d","c"]]))
 #-------------------------------------------------------------
 # Time: O(n^2) due to iterating over 'projects' with nested loop
 # Space: O(V + E + projects) needs space proportional to verticies and edges
 #-------------------------------------------------------------
-# class Test(unittest.TestCase):
-#     def setUp(self):
+class Test(unittest.TestCase):
+    def test_1(self):
+        self.assertEqual(buildOrder(["a","b","c","d","e","f"], [["a","d"],["f","b"],["b","d"],["f","a"],["d","c"]]),["f","b","a","d","c","e"])
         
-# if __name__ == "__main__":
-#     unittest.main()
+    def test_singular_project(self):
+        self.assertEqual(buildOrder(["a"], None),["a"])
+
+    def test_error(self):
+        with self.assertRaises(Exception):
+            buildOrder(["a","b","c","d","e","f"], [["a","a"],["f","b"],["b","d"],["f","a"],["d","c"]])
+
+if __name__ == "__main__":
+    unittest.main()
