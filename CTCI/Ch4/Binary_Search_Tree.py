@@ -69,7 +69,6 @@ def get_height(node, height = 0):
     
     return height
 
-
 def get_minimum(node):
     while node.left:
         node = node.left

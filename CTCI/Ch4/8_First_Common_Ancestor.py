@@ -54,7 +54,7 @@ def getHeight(treeNode, node, height=0):
     return getHeight(treeNode.right, node, height + 1)
 #-------------------------------------------------------------
 # Time: O(n) - n is the height of the tree, exact number depends on ancestor
-# Space: O(1) - No additional space
+# Space: O(h) - storing height int
 #-------------------------------------------------------------
 class Test(unittest.TestCase):
     def test_first_common_ancestor_same_node(self):
