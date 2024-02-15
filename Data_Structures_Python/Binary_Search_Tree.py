@@ -24,6 +24,10 @@ def insert_recursive(node,data):
         else:
             insert_recursive(node.right,data)
 
+def insert_multiple(node, dataArr):
+    for i in range(len(dataArr)):
+        insert(node, dataArr[i])
+
 def search(node,data):
     if node is None:
         return None
