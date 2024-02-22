@@ -5,7 +5,7 @@
 #         1 3
 # Output: {2, 1, 3}, {2, 3, 1}
 import unittest
-from Binary_Search_Tree import Tree_Node, insert_multiple
+from Binary_Search_Tree import Tree_Node, insert_multiple,insert
 #-------------------------------------------------------------
 def BST_Sequences(root):
     arrSize = 2 ** getHeight(root) - 1
@@ -35,23 +35,21 @@ def toArr(root, arr, i = 0):
 def checkSequences(arr, sequences, size, i = 0):
     if i > size - 1 or arr[i] == 0:
         return
-    
+    print(i, arr[i])
     left = checkChildren(arr, 2*i+1, size)
     right = checkChildren(arr, 2*i+2, size)
 
-    if left:
-        sequences.append(left)
-    if right:
-        sequences.append(right)
+    if left != None: sequences.append(left)
+
+    if right != None: sequences.append(right)
 
     checkSequences(arr, sequences, size, 2*i+1)
     checkSequences(arr, sequences, size, 2*i+2)
 
-    return sequences
+    return sequences 
 
 def checkChildren(arr, i, size):
-    if i >= (size - 1)/2:
-        return None
+    if i >= (size - 1)/2: return None
     
     if arr[2*i + 1] != 0 and arr[2*i + 2] != 0:
         tempArr = arr
