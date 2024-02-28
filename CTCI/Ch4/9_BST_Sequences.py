@@ -55,8 +55,7 @@ def checkChildren(arr, i, size):
         tempArr = arr
         tempArr[2*i + 1], tempArr[2*i + 2] = tempArr[2*i + 2], tempArr[2*i + 1]
         return tempArr
-    else:
-        return None
+    else: return None
 
 #-------------------------------------------------------------
 # Time: 
