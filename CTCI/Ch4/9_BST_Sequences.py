@@ -58,8 +58,8 @@ def checkChildren(arr, i, size):
     else: return None
 
 #-------------------------------------------------------------
-# Time: 
-# Space: 
+# Time: O(n), both time and space depend on the number of nodes in root tree
+# Space: O(n)
 #-------------------------------------------------------------
 BST = Tree_Node(5)
 insert_multiple(BST, [3, 7, 2, 4, 6, 8])
